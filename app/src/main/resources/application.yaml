@@ -1,0 +1,26 @@
+telegram:
+  bot:
+    token: ${BOT_TOKEN}
+    api: "https://api.telegram.org/"
+    timeOutSeconds: 2
+  cron:
+    #every 2 sec
+    longPollingConfiguration: "0/2 * * ? * *"
+    #at 8:10 daily
+    runReminderConfiguration: "0 10 8 ? * *"
+
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      database: postgresql
+  datasource:
+    url: ${DATASOURCE_URL}
+    platform: postgres
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
+    continue-on-error: true
