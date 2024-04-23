@@ -1,12 +1,13 @@
 package org.birthdayreminder.app.configuration;
 
+import jakarta.persistence.EntityManager;
 import org.birthdayreminder.app.mapper.PersonBirthdayMapper;
 import org.birthdayreminder.app.mapper.UserMapper;
 
 import org.birthdayreminder.app.repository.PersonBirthdayEntityRepository;
 import org.birthdayreminder.app.repository.UserEntityRepository;
 import org.birthdayreminder.app.repository.impl.JPAPersonBirthdayRepositoryImpl;
-import org.birthdayreminder.app.repository.impl.JPAUserRepositoryImpl;
+import org.birthdayreminder.app.repository.impl.AnotherJPAUserRepoImpl;
 import org.birthdayreminder.client.TelegramRestClient;
 import org.birthdayreminder.client.TelegramRestClientSettings;
 import org.birthdayreminder.client.impl.TelegramRestClientImpl;
@@ -42,13 +43,19 @@ public class BeanConfiguration {
         return new UserBirthdayServiceImpl(userRepository, personBirthdayRepository);
     }
 
-    @Bean
-    public UserRepository userRepository(UserEntityRepository userRepo, UserMapper userMapper) {
-        return new JPAUserRepositoryImpl(userRepo, userMapper);
-    }
+//    @Bean
+//    public UserRepository userRepository(UserEntityRepository userRepo, UserMapper userMapper) {
+//        return new JPAUserRepositoryImpl(userRepo, userMapper);
+//    }
 
     @Bean
     public PersonBirthdayRepository personBirthdayRepository(PersonBirthdayEntityRepository birthdayRepo, PersonBirthdayMapper birthdayMapper, UserEntityRepository userRepo) {
         return new JPAPersonBirthdayRepositoryImpl(birthdayRepo, birthdayMapper, userRepo);
+    }
+
+
+    @Bean
+    public UserRepository userRepository(EntityManager entityManager, UserMapper userMapper) {
+        return new AnotherJPAUserRepoImpl(userMapper, entityManager);
     }
 }
