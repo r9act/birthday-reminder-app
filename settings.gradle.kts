@@ -9,4 +9,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
+include("telegram-bot-client")
+include("android-client")
