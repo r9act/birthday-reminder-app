@@ -1,4 +1,4 @@
-package org.birthdayreminder.app.handlers;
+package org.birthdayreminder.handlers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.birthdayreminder.client.TelegramRestClient;

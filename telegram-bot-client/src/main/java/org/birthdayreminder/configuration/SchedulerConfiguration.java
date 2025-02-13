@@ -1,9 +1,10 @@
-package org.birthdayreminder.app.configuration;
+package org.birthdayreminder.configuration;
 
 import lombok.SneakyThrows;
-import org.birthdayreminder.app.handlers.UpdateHandler;
-import org.birthdayreminder.app.service.ReminderTask;
+
 import org.birthdayreminder.dto.in.ResultDTO;
+import org.birthdayreminder.handlers.UpdateHandler;
+import org.birthdayreminder.service.ReminderTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package org.birthdayreminder.app.service;
+package org.birthdayreminder.service;
 
 import org.birthdayreminder.client.TelegramRestClient;
 import org.birthdayreminder.domain.model.DatePeriod;

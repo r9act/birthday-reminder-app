@@ -1,4 +1,4 @@
-package org.birthdayreminder.app.handlers;
+package org.birthdayreminder.handlers;
 
 import org.birthdayreminder.domain.model.DatePeriod;
 import org.birthdayreminder.domain.model.PersonBirthday;

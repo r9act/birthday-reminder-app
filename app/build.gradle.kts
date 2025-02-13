@@ -26,7 +26,9 @@ repositories {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":telegram-bot-client"))
     implementation(project(":telegram-client"))
+    implementation(project(":android-client"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
 
@@ -53,8 +55,6 @@ dependencies {
 
 }
 
-tasks {
-    test {
-        useJUnitPlatform()
-    }
+tasks.test {
+    useJUnitPlatform()
 }

@@ -1,4 +1,4 @@
-package org.birthdayreminder.app.handlers;
+package org.birthdayreminder.handlers;
 
 import org.birthdayreminder.dto.in.ResultDTO;
 import org.birthdayreminder.dto.out.Message;

@@ -1,4 +1,4 @@
-package org.birthdayreminder.app.handlers;
+package org.birthdayreminder.handlers;
 
 import org.birthdayreminder.domain.model.User;
 import org.birthdayreminder.domain.repository.UserRepository;

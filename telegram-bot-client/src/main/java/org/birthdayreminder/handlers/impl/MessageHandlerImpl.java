@@ -1,7 +1,7 @@
-package org.birthdayreminder.app.handlers.impl;
+package org.birthdayreminder.handlers.impl;
 
-import org.birthdayreminder.app.handlers.MessageHandler;
-import org.birthdayreminder.app.handlers.ReminderHandler;
+import org.birthdayreminder.handlers.MessageHandler;
+import org.birthdayreminder.handlers.ReminderHandler;
 import org.birthdayreminder.domain.model.User;
 import org.birthdayreminder.domain.repository.PersonBirthdayRepository;
 import org.birthdayreminder.domain.repository.UserRepository;
