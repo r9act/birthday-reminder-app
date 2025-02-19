@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.birthdayreminder"
-version = "1.0.0"
+version = "2.0.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
