@@ -9,9 +9,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
 	@JsonProperty(value = "id")
+	private Long id;
+	@JsonProperty(value = "chatId")
 	private Long androidChatId;
 	@JsonProperty(value = "name")
 	private String firstName;
+
+	public Long getId() {
+		return id;
+	}
+
+	public UserDto setId(Long id) {
+		this.id = id;
+		return this;
+	}
 
 	public Long getAndroidChatId() {
 		return androidChatId;

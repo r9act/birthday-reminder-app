@@ -16,6 +16,8 @@ public interface UserMapper {
     @Mapping(source = "androidChatId", target = "chatId")
     @Mapping(source = "firstName", target = "name")
     User toModel(UserDto userDto);
+
+    UserEntity toEntity(UserDto userDto);
     @Mapping(source = "chatId", target = "androidChatId")
     @Mapping(source = "name", target = "firstName")
     UserDto toDto(User user);
