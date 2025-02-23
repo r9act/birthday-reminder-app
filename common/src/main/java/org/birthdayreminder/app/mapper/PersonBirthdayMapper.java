@@ -20,11 +20,11 @@ public interface PersonBirthdayMapper {
 
     PersonBirthdayDto toDto(PersonBirthday personBirthday);
 
-    @Mapping(source = "androidChatId", target = "chatId")
+    @Mapping(source = "androidId", target = "chatId")
     @Mapping(source = "firstName", target = "name")
     User toModel(UserDto userDto);
 
-    @Mapping(source = "chatId", target = "androidChatId")
+    @Mapping(source = "chatId", target = "androidId")
     @Mapping(source = "name", target = "firstName")
     UserDto toDto(User user);
 

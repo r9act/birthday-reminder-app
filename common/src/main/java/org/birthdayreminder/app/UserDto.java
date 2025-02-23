@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserDto {
 	@JsonProperty(value = "id")
 	private Long id;
-	@JsonProperty(value = "chatId")
-	private Long androidChatId;
+	@JsonProperty(value = "androidId")
+	private Long androidId;
 	@JsonProperty(value = "name")
 	private String firstName;
 
@@ -24,12 +24,12 @@ public class UserDto {
 		return this;
 	}
 
-	public Long getAndroidChatId() {
-		return androidChatId;
+	public Long getAndroidId() {
+		return androidId;
 	}
 
-	public UserDto setAndroidChatId(Long androidChatId) {
-		this.androidChatId = androidChatId;
+	public UserDto setAndroidId(Long androidId) {
+		this.androidId = androidId;
 		return this;
 	}
 

@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override public boolean updateUser(UserDto userDto) {
-		Optional<User> existingUserOpt = userRepository.getUserById(userDto.getAndroidChatId());
+		Optional<User> existingUserOpt = userRepository.getUserById(userDto.getAndroidId());
 		if (existingUserOpt.isEmpty()) {
 			return false;
 		}
