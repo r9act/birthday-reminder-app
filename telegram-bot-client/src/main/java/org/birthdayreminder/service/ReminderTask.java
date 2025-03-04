@@ -39,7 +39,7 @@ public class ReminderTask {
                 .collect(Collectors.toSet());
 
         for (User u : listOfUsersWithReminderActive) {
-            var chatId = u.getChatId();
+            var chatId = u.getForeignId();
             List<PersonBirthday> listToSend = personBirthdaysList.stream().filter(personBirthday -> personBirthday.user().equals(u)).toList();
             client.sendMessage(new Message(chatId, BirthdayListPrinter.printList(listToSend)));
         }

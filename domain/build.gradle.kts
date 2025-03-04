@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.birthdayreminder"
-version = "1.0.0"
+version = "2.0.1"
 
 dependencies {
     compileOnly("org.projectlombok:lombok:${Versions.Libs.PROJECT_LOMBOK}")

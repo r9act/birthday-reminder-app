@@ -32,7 +32,7 @@ public class JPAPersonBirthdayRepositoryImpl implements PersonBirthdayRepository
     @Override
     public Integer saveAll(List<PersonBirthday> personBirthdays) {
 
-        var ownerEntity = userRepo.findById(personBirthdays.get(0).user().getId()).orElseThrow(NullPointerException::new);
+        var ownerEntity = userRepo.findById(personBirthdays.getFirst().user().getId()).orElseThrow(NullPointerException::new);
 
         List<PersonBirthdayEntity> list = personBirthdays
                 .stream()

@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
+    kotlin("jvm") version "1.9.22"
 }
 
 group = "org.birthdayreminder"
@@ -11,26 +12,15 @@ java {
     sourceCompatibility = JavaVersion.VERSION_21
 
 }
-
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
-
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     implementation(project(":domain"))
     implementation(project(":telegram-bot-client"))
     implementation(project(":telegram-client"))
-    implementation(project(":android-client"))
-    implementation(project(":common"))
 
-    implementation("org.liquibase:liquibase-core:4.22.0")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     compileOnly("org.projectlombok:lombok")
@@ -53,7 +43,6 @@ dependencies {
     implementation("org.postgresql:postgresql")
 
     testImplementation ("org.testcontainers:postgresql:1.19.5")
-
 }
 
 tasks.test {

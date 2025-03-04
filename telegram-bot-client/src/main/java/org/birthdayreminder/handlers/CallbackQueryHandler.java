@@ -32,7 +32,7 @@ public class CallbackQueryHandler {
         DatePeriod datePeriod = new DatePeriod(LocalDate.of(year, month, FIRSTDAYOFMONTH),
                 LocalDate.of(year, month, YearMonth.of(year, month).lengthOfMonth()));
 
-        var userId = userRepository.getUserByChatId(chatId).orElseThrow().getId();
+        var userId = userRepository.getUserByForeignId(chatId).orElseThrow().getId();
 
         List<PersonBirthday> filteredBirthdays = personBirthdayRepository.findByDatePeriodAndUserId(datePeriod, userId);
 

@@ -20,7 +20,7 @@ public class UserMapperTest {
     public void shouldMapEntityToModel() {
         //given
         UserEntity userEntity = new UserEntity();
-        userEntity.setChatId(1234L);
+        userEntity.setForeignId(1234L);
         userEntity.setName("Artem");
         userEntity.setIsReminderActive(false);
         //when
@@ -29,7 +29,7 @@ public class UserMapperTest {
         var expectedName = "Artem";
         assertNotNull(user.getName());
         assertEquals(expectedName, user.getName());
-        assertEquals(userEntity.getChatId(), user.getChatId());
+        assertEquals(userEntity.getForeignId(), user.getForeignId());
         System.out.println(user.getName());
     }
 
@@ -41,7 +41,7 @@ public class UserMapperTest {
         UserEntity userEntity = userMapper.toEntity(user);
         //then
         assertEquals("Artem", userEntity.getName());
-        assertEquals(12345L, userEntity.getChatId());
+        assertEquals(12345L, userEntity.getForeignId());
         assertEquals(false, userEntity.getIsReminderActive());
     }
 }
