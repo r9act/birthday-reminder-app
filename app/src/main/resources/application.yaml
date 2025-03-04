@@ -10,17 +10,19 @@ telegram:
     runReminderConfiguration: "0 10 8 ? * *"
 
 spring:
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
   jpa:
     show-sql: true
-    generate-ddl: true
+    generate-ddl: false # Отключаем автоматическую генерацию схемы Hibernate при исп. liquibase
     hibernate:
-      ddl-auto: update
-      database: postgresql
+      ddl-auto: none # Полностью отключаем изменение схемы через Hibernate при исп. liquibase
   datasource:
     url: ${DATASOURCE_URL}
-    platform: postgres
     username: ${USERNAME}
     password: ${PASSWORD}
     driverClassName: org.postgresql.Driver
-    initialization-mode: always
-    continue-on-error: true
+  sql:
+    init:
+      platform: postgres
+      mode: always # в проде поменять на 'never'

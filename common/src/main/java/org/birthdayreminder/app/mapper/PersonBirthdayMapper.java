@@ -18,14 +18,15 @@ public interface PersonBirthdayMapper {
     @Mapping(source = "owner", target = "user")
     PersonBirthday toModel(PersonBirthdayDto personBirthdayDto);
 
+    @Mapping(source = "user", target = "owner")
     PersonBirthdayDto toDto(PersonBirthday personBirthday);
 
-    @Mapping(source = "androidId", target = "chatId")
-    @Mapping(source = "firstName", target = "name")
+    @Mapping(source = "foreignId", target = "foreignId")
+    @Mapping(source = "name", target = "name")
     User toModel(UserDto userDto);
 
-    @Mapping(source = "chatId", target = "androidId")
-    @Mapping(source = "name", target = "firstName")
+    @Mapping(source = "foreignId", target = "foreignId")
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "isReminderActive", target = "isReminderActive")
     UserDto toDto(User user);
-
 }

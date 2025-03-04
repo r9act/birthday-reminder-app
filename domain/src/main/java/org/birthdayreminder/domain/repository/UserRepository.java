@@ -2,9 +2,7 @@ package org.birthdayreminder.domain.repository;
 
 import org.birthdayreminder.domain.model.User;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface UserRepository {
 
@@ -14,10 +12,9 @@ public interface UserRepository {
 
     Long saveNewUser(User user);
 
+    Long saveUser(User user);
+
     Optional<User> getUserById(Long id);
 
-    Optional<User> getUserByChatId(Long chatId);
-
-    //использовался в class ReminderTask для возвращения списка User для рассылки напоминаний (переделано)
-  //  Set<User> getSetOfUsersByListOfId(Set<Long> listOfOwnerchatIds);
+    Optional<User> getUserByForeignId(Long foreignId);
 }

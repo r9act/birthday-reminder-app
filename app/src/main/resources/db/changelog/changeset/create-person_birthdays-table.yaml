@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-person_birthdays
+      author: Artem
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: person_birthdays
+      changes:
+        - createTable:
+            tableName: person_birthdays
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: person_birthdays
+            baseColumnNames: owner
+            constraintName: fk_person_birthdays_owner
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE

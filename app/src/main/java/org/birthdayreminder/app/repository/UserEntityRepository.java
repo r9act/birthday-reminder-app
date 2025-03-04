@@ -9,8 +9,8 @@ import java.util.Optional;
 @Repository
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 
-    Boolean existsByChatId(Long chatId);
+    Boolean existsByForeignId(Long chatId);
 
-    Optional<UserEntity> findByChatId(Long chatId);
+    Optional<UserEntity> findByForeignId(Long foreignId);
 
 }

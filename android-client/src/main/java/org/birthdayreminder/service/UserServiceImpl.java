@@ -25,30 +25,35 @@ public class UserServiceImpl implements UserService{
 		this.userMapper = userMapper;
 	}
 
-	@Override public boolean updateUser(UserDto userDto) {
-		Optional<User> existingUserOpt = userRepository.getUserById(userDto.getAndroidId());
-		if (existingUserOpt.isEmpty()) {
-			return false;
+	@Override
+	public Long createUser(UserDto userDto) {
+		if (userRepository.getUserByForeignId(userDto.getForeignId()).isPresent()) {
+			logger.error("User exists: foreignId={}, name={}", userDto.getForeignId(), userDto.getName());
+			throw  new RuntimeException("User " + userDto.getForeignId() + " exists");
 		}
-		User existingUser = existingUserOpt.get();
-		userMapper.updateUserFromDto(userDto, existingUser);
-		userRepository.updateUser(existingUser);
-		return true;
-	}
-
-	@Override public Long saveNewUser(UserDto userDto) {
 		User user = userMapper.toModel(userDto);
-		Long userId = userRepository.saveNewUser(user);
-		logger.info("New user saved: id={}, chatId={}, name={}", userId, user.getChatId(), user.getName());
+		Long userId = userRepository.saveUser(user);
+		logger.info("New user saved: id={}, foreignId={}, name={}", userId, user.getForeignId(), user.getName());
 		return userId;
 	}
 
-
-	@Override public Optional<UserDto> getUserByChatId(Long chatId) {
-		Optional<User> userOptional = userRepository.getUserByChatId(chatId);
-		userOptional.ifPresent(user ->
-				logger.info("User found: {}", user)
-		);
+	@Override
+	public Optional<UserDto> getUserByForeignId(Long foreignId) {
+		Optional<User> userOptional = userRepository.getUserByForeignId(foreignId);
+		userOptional.ifPresentOrElse(user ->
+				logger.info("User found: {}", user), () ->  { throw new RuntimeException("User not found: " + foreignId);});
 		return userOptional.map(userMapper::toDto);
+	}
+
+	@Override
+	public boolean updateUserInfo(UserDto userDto) {
+		Optional<User> existingUserOpt = userRepository.getUserByForeignId(userDto.getForeignId());
+		User existingUser = existingUserOpt.orElseThrow(() ->
+				new RuntimeException("User not found: " + userDto.getForeignId())
+		);
+		// объект user передается по ссылке, и MapStruct обновляет его на месте.
+		userMapper.updateUserFromDto(userDto, existingUser);
+		userRepository.saveUser(existingUser);
+		return true;
 	}
 }

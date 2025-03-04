@@ -30,6 +30,7 @@ dependencies {
     implementation(project(":android-client"))
     implementation(project(":common"))
 
+    implementation("org.liquibase:liquibase-core:4.22.0")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     compileOnly("org.projectlombok:lombok")

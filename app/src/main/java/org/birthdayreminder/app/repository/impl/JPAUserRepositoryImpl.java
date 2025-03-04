@@ -27,16 +27,25 @@ public class JPAUserRepositoryImpl implements UserRepository {
 
     @Override
     public Boolean userExists(User user) {
-       return userRepo.existsByChatId(user.getChatId());
+       return userRepo.existsByForeignId(user.getForeignId());
     }
 
+    /**
+     * Проверяет, есть ли такой юзер, если да - вернет его foreignId, нет - сохранит. Для API проверка будет в сервисе.
+	 */
     @Override
+    @Deprecated
     public Long saveNewUser(User user) {
         if (!userExists(user)) {
             userRepo.save(userMapper.toEntity(user));
             return user.getId();
         }
-        return getUserByChatId(user.getChatId()).orElseThrow(NullPointerException::new).getId();
+        return getUserByForeignId(user.getForeignId()).orElseThrow(NullPointerException::new).getId();
+    }
+
+    @Override public Long saveUser(User user) {
+        userRepo.save(userMapper.toEntity(user));
+        return user.getId();
     }
 
     @Override
@@ -45,7 +54,7 @@ public class JPAUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> getUserByChatId(Long chatId) {
-        return userRepo.findByChatId(chatId).map(userMapper::toModel);
+    public Optional<User> getUserByForeignId(Long foreignId) {
+        return userRepo.findByForeignId(foreignId).map(userMapper::toModel);
     }
 }

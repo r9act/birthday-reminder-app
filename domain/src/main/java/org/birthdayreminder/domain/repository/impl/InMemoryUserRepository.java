@@ -18,7 +18,7 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public Boolean userExists(User user) {
-        return list.stream().anyMatch(u -> u.getChatId().equals(user.getChatId()));
+        return list.stream().anyMatch(u -> u.getForeignId().equals(user.getForeignId()));
     }
 
     @Override
@@ -30,7 +30,11 @@ public class InMemoryUserRepository implements UserRepository {
             list.add(user);
             return user.getId();
         }
-        return getUserByChatId(user.getChatId()).orElseThrow(NullPointerException::new).getId();
+        return getUserByForeignId(user.getForeignId()).orElseThrow(NullPointerException::new).getId();
+    }
+
+    @Override public Long saveUser(User user) {
+        throw new RuntimeException("Not implemented");
     }
 
     @Override
@@ -40,8 +44,8 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> getUserByChatId(Long chatId) {
-        return list.stream().filter(u -> u.getChatId().equals(chatId))
+    public Optional<User> getUserByForeignId(Long foreignId) {
+        return list.stream().filter(u -> u.getForeignId().equals(foreignId))
                 .findFirst();
     }
 }

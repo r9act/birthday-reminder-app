@@ -15,7 +15,7 @@ public class ReminderHandler {
     }
 
     public void onReminder(ResultDTO result) {
-        User user = userRepository.getUserByChatId(result.getMessage().getUser().getChatId()).orElseThrow(NullPointerException::new);
+        User user = userRepository.getUserByForeignId(result.getMessage().getUser().getChatId()).orElseThrow(NullPointerException::new);
         userRepository.updateUser(user);
     }
 }

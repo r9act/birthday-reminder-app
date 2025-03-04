@@ -67,7 +67,7 @@ public class MessageHandlerImpl implements MessageHandler {
         PersonBirthdayFileParser parser = new PersonBirthdayExcelFileParser();
         var chatId = result.getMessage().getUser().getChatId();
 
-        return userRepository.getUserByChatId(chatId)
+        return userRepository.getUserByForeignId(chatId)
                 .map(User::getId)
                 .map(id -> userBirthdayService.linkBirthdayToUser(parser.parse(is), id))
                 .map(sm -> new Message(chatId, "Success!"))

@@ -1,14 +1,12 @@
 package org.birthdayreminder.service;
 
 import org.birthdayreminder.app.UserDto;
-import org.birthdayreminder.domain.model.User;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 public interface UserService {
-	boolean updateUser(UserDto userDto);
+	boolean updateUserInfo(UserDto userDto);
 
-	Long saveNewUser(UserDto userDto);
+	Long createUser(UserDto userDto);
 
-	Optional<UserDto> getUserByChatId(Long chatId);
+	Optional<UserDto> getUserByForeignId(Long foreignId);
 }

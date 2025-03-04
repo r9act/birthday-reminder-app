@@ -1,12 +1,11 @@
 package org.birthdayreminder.domain.model;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
 public class User {
     private Long id;
-    private Long chatId;
+    private Long foreignId;
     private String name;
     private Boolean isReminderActive;
 
@@ -14,15 +13,15 @@ public class User {
     public User() {
     }
 
-    public User(Long chatId, String name, Boolean isReminderActive) {
-        this.chatId = chatId;
+    public User(Long foreignId, String name, Boolean isReminderActive) {
+        this.foreignId = foreignId;
         this.name = name;
         this.isReminderActive = isReminderActive;
     }
 
-    public User(Long id, Long chatId, String name, Boolean isReminderActive) {
+    public User(Long id, Long foreignId, String name, Boolean isReminderActive) {
         this.id = id;
-        this.chatId = chatId;
+        this.foreignId = foreignId;
         this.name = name;
         this.isReminderActive = isReminderActive;
     }

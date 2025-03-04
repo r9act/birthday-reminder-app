@@ -10,36 +10,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserDto {
 	@JsonProperty(value = "id")
 	private Long id;
-	@JsonProperty(value = "androidId")
-	private Long androidId;
+	@JsonProperty(value = "foreignId")
+	private Long foreignId;
 	@JsonProperty(value = "name")
-	private String firstName;
+	private String name;
+	@JsonProperty(value = "isReminderActive")
+	private Boolean isReminderActive;
 
 	public Long getId() {
 		return id;
 	}
 
-	public UserDto setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
-		return this;
 	}
 
-	public Long getAndroidId() {
-		return androidId;
+	public Long getForeignId() {
+		return foreignId;
 	}
 
-	public UserDto setAndroidId(Long androidId) {
-		this.androidId = androidId;
-		return this;
+	public void setForeignId(Long foreignId) {
+		this.foreignId = foreignId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public UserDto setFirstName(String firstName) {
-		this.firstName = firstName;
-		return this;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Boolean getIsReminderActive() {
+		return isReminderActive;
+	}
+
+	public void setIsReminderActive(Boolean isReminderActive) {
+		this.isReminderActive = isReminderActive;
 	}
 }
 

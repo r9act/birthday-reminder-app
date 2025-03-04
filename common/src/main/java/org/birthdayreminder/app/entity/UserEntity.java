@@ -12,7 +12,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long chatId;
+    private Long foreignId;
     private String name;
     private Boolean isReminderActive;
 
