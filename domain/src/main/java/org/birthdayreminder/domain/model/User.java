@@ -1,6 +1,6 @@
 package org.birthdayreminder.domain.model;
 
-import lombok.Data;
+import lombok.Data;import java.util.HashSet;import java.util.Set;
 
 @Data
 public class User {
@@ -8,7 +8,10 @@ public class User {
     private Long foreignId;
     private String name;
     private Boolean isReminderActive;
-
+	//TODO
+ 	private Set<String> roles = new HashSet<>();
+	 private String username;
+	 private String password;
 
     public User() {
     }
