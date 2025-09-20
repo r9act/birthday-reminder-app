@@ -7,7 +7,7 @@ import org.birthdayreminder.domain.model.PersonBirthday;
 import org.birthdayreminder.domain.model.User;
 import org.birthdayreminder.domain.repository.PersonBirthdayRepository;
 import org.birthdayreminder.domain.repository.UserRepository;
-import org.springframework.stereotype.Service;
+import org.birthdayreminder.security.exception.UserNotFoundException;import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,12 +43,13 @@ public class PersonBirthdayServiceImpl implements PersonBirthdayService {
 		personBirthdayRepository.saveAll(personBirthdays);
 	}
 
+	//TODO больше обработок ошибок - подготовки для FrontEnda
 	@Override
 	public List<PersonBirthdayDto> prepareBirthdayList(Long foreignId) {
-		User user = userRepository.getUserByForeignId(foreignId)
-				.orElseThrow(() -> new RuntimeException("User not found"));
-		return personBirthdayRepository.getAllByUserId(user.getId()).stream()
-						.map(personBirthdayMapper::toDto)
-						.collect(Collectors.toList());
-	}
+        User user = userRepository.getUserByForeignId(foreignId)
+            .orElseThrow(() -> new UserNotFoundException("User with foreignId " + foreignId + " not found"));
+        return personBirthdayRepository.getAllByUserId(user.getId()).stream()
+            .map(personBirthdayMapper::toDto)
+            .collect(Collectors.toList());
+    }
 }

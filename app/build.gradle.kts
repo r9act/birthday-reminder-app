@@ -27,7 +27,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":telegram-bot-client"))
     implementation(project(":telegram-client"))
-    implementation(project(":android-client"))
+    implementation(project(":web-api"))
     implementation(project(":common"))
 
     implementation("org.liquibase:liquibase-core:4.22.0")

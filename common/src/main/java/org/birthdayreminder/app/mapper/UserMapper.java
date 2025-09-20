@@ -17,12 +17,14 @@ public interface UserMapper {
     UserEntity toEntity(User model);
     @Mapping(source = "foreignId", target = "foreignId")
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "roles", target = "roles")
     User toModel(UserDto userDto);
 
     UserEntity toEntity(UserDto userDto);
     @Mapping(source = "foreignId", target = "foreignId")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "isReminderActive", target = "isReminderActive")
+    @Mapping(source = "roles", target = "roles")
     UserDto toDto(User user);
 
     @Mapping(target = "id", ignore = true) // PK оставляем нетронутым
@@ -30,4 +32,6 @@ public interface UserMapper {
     @Mapping(source = "isReminderActive", target = "isReminderActive")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE) // Не перезаписываем null
     void updateUserFromDto(UserDto dto, @MappingTarget User user);
+
+
 }

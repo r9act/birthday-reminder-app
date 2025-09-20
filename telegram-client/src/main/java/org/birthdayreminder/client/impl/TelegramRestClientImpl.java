@@ -25,17 +25,14 @@ import static org.birthdayreminder.client.RestMethods.*;
 
 public class TelegramRestClientImpl implements TelegramRestClient {
 
-    private final String telegramApiEndpoint;
-    private final String privateToken;
-    private final Integer timeOutSeconds;
-
-    private final ObjectMapper mapper = new ObjectMapper();
-    private final HttpClient httpClient = HttpClient.newHttpClient();
+    private final TelegramRestClientSettings settings;
+    private final ObjectMapper mapper;
+    private final HttpClient httpClient;
 
     public TelegramRestClientImpl(TelegramRestClientSettings settings) {
-        this.telegramApiEndpoint = settings.telegramApiEndpoint();
-        this.privateToken = settings.privateToken();
-        this.timeOutSeconds = settings.timeOutSeconds();
+        this.settings = settings;
+        this.mapper = new ObjectMapper();
+        this.httpClient = HttpClient.newHttpClient();
     }
 
     @Override
@@ -48,12 +45,12 @@ public class TelegramRestClientImpl implements TelegramRestClient {
 
         String getUpdatesMethod;
         if (offset != null) {
-            getUpdatesMethod = GETUPDATESOFFSET.getParamUpdate(offset, timeOutSeconds);
+            getUpdatesMethod = GETUPDATESOFFSET.getParamUpdate(offset, settings.timeOutSeconds());
         } else {
-            getUpdatesMethod = GETUPDATES.getPath() + "?timeout=" + timeOutSeconds;
+            getUpdatesMethod = GETUPDATES.getPath() + "?timeout=" + settings.timeOutSeconds();
         }
         HttpRequest build = HttpRequest.newBuilder()
-                .uri(URI.create(telegramApiEndpoint + privateToken + getUpdatesMethod))
+                .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + getUpdatesMethod))
                 .GET()
                 .build();
         try {
@@ -72,7 +69,7 @@ public class TelegramRestClientImpl implements TelegramRestClient {
     public InputStream downloadFile(String fileId) {
 
         HttpRequest requestFileDTO = HttpRequest.newBuilder()
-                .uri(URI.create(telegramApiEndpoint + privateToken + GETFILE.getPath() + fileId))
+                .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + GETFILE.getPath() + fileId))
                 .GET()
                 .build();
         try {
@@ -82,7 +79,7 @@ public class TelegramRestClientImpl implements TelegramRestClient {
             final String filePath = resultFileDTO.getFileDTO().getFilePath();
 
             HttpRequest requestFileDownload = HttpRequest.newBuilder()
-                    .uri(URI.create(telegramApiEndpoint + "file/" + privateToken + "/" + filePath))
+                    .uri(URI.create(settings.telegramApiEndpoint() + "file/" + settings.privateToken() + "/" + filePath))
                     .GET()
                     .build();
 
@@ -100,7 +97,7 @@ public class TelegramRestClientImpl implements TelegramRestClient {
         var cleanText = URLEncoder.encode(text, StandardCharsets.UTF_8);
 
         HttpRequest sendMessage = HttpRequest.newBuilder()
-                .uri(URI.create(telegramApiEndpoint + privateToken + SENDMESSAGE.getParamPathSendMessage(chatId, cleanText)))
+                .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + SENDMESSAGE.getParamPathSendMessage(chatId, cleanText)))
                 .GET()
                 .build();
         try {
@@ -123,7 +120,7 @@ public class TelegramRestClientImpl implements TelegramRestClient {
 
             HttpRequest sendMessage = HttpRequest.newBuilder()
                     .header("Content-Type", "application/json")
-                    .uri(URI.create(telegramApiEndpoint + privateToken + SENDMESSAGE.getParamPathSendMessage(chatId, encodedText)))
+                    .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + SENDMESSAGE.getParamPathSendMessage(chatId, encodedText)))
                     .POST(HttpRequest.BodyPublishers.ofString(keyboardAsJson))
                     .build();
             try {
