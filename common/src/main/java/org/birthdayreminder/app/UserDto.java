@@ -3,6 +3,9 @@ package org.birthdayreminder.app;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author a.mishkin
  */
@@ -16,6 +19,8 @@ public class UserDto {
 	private String name;
 	@JsonProperty(value = "isReminderActive")
 	private Boolean isReminderActive;
+	@JsonProperty(value = "roles")
+	private Set<String> roles = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -48,5 +53,13 @@ public class UserDto {
 	public void setIsReminderActive(Boolean isReminderActive) {
 		this.isReminderActive = isReminderActive;
 	}
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 }
 
