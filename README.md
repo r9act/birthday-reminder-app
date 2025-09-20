@@ -1,4 +1,51 @@
-# birthday-reminder-app
-Telegram bot that accepts .xlsx with the list of people with birthdays, parses, stores to db.
+# Birthday Reminder App 🎉
 
-Using telegram API shows all, oncoming birthdays or oncoming birthdays daily with @Scheduler.
+**Telegram-бот + Web API для управления днями рождения.**  
+
+Проект позволяет загружать список людей с днями рождения в формате `.xlsx`, сохраняет данные в базе и отправляет уведомления о предстоящих днях рождения. Также данные доступны через REST API.
+
+---
+
+## Функции
+
+- **Интеграция с Telegram-ботом**
+  - Принимает `.xlsx` с людьми и их днями рождения
+  - Парсит и сохраняет данные в базу
+  - Показывает все дни рождения или только предстоящие
+  - Ежедневные напоминания через `@Scheduler`
+
+- **Web API**
+  - Доступ и управление пользователями и днями рождения через REST эндпоинты
+
+---
+
+## REST API Эндпоинты
+
+### Дни рождения
+- `GET /api/birthdays/{foreignId}` — Получить все дни рождения пользователя по foreignId
+- `POST /api/birthdays/{foreignId}` — Сохранить список дней рождения для пользователя
+
+### Пользователи
+- `POST /api/users` — Создать нового пользователя
+- `GET /api/users/{foreignId}` — Получить пользователя по foreignId
+- `PUT /api/users/{id}` — Обновить информацию о пользователе
+
+### Аутентификация
+- `POST /login` — Вход пользователя
+- `POST /signup` — Регистрация нового пользователя
+
+### Инструменты разработчика
+- `GET /developer/tools` — Доступ к инструментам и эндпоинтам для разработчиков
+
+---
+
+## Технологии
+
+- Java 17+
+- Spring Boot (Web, Data JPA, Security)
+- PostgreSQL (База данных)
+- Telegram API
+- Scheduler для ежедневных напоминаний
+- Liquibase для миграций базы данных
+
+---
