@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class JPAPersonBirthdayRepositoryImpl implements PersonBirthdayRepository {
@@ -48,7 +50,7 @@ public class JPAPersonBirthdayRepositoryImpl implements PersonBirthdayRepository
     public List<PersonBirthday> getAllByUserId(Long id) {
         var list = birthdayRepo.findAllById(id).stream().map(birthdayMapper::toModel).toList();
         logger.info("Found PersonBirthdays: " + list.size());
-        return list;
+        return insertToday(list);
     }
 
     @Override
@@ -63,5 +65,14 @@ public class JPAPersonBirthdayRepositoryImpl implements PersonBirthdayRepository
         var start = datePeriod.from().getDayOfYear();
         var end = datePeriod.to().getDayOfYear();
        return birthdayRepo.findAllByIdAndDateBetween(id, start, end).stream().map(birthdayMapper::toModel).collect(Collectors.toList());
+    }
+
+    private List<PersonBirthday> insertToday(List<PersonBirthday> personBirthdays) {
+        return Stream.concat(
+                        personBirthdays.stream(),
+                        Stream.of(new PersonBirthday("TODAY", null, LocalDate.now()))
+                )
+                .sorted((o1, o2) -> o1.date().compareTo(o2.date()))
+                .toList();
     }
 }

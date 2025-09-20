@@ -24,6 +24,8 @@ import java.util.List;
 import static org.birthdayreminder.client.RestMethods.*;
 
 public class TelegramRestClientImpl implements TelegramRestClient {
+    public static String MARKDOWN = "MarkdownV2";
+    public static String HTML = "HTML";
 
     private final TelegramRestClientSettings settings;
     private final ObjectMapper mapper;
@@ -97,7 +99,7 @@ public class TelegramRestClientImpl implements TelegramRestClient {
         var cleanText = URLEncoder.encode(text, StandardCharsets.UTF_8);
 
         HttpRequest sendMessage = HttpRequest.newBuilder()
-                .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + SENDMESSAGE.getParamPathSendMessage(chatId, cleanText)))
+                .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + SENDMESSAGE.getParamPathSendMessage(chatId, MARKDOWN, cleanText)))
                 .GET()
                 .build();
         try {
@@ -120,7 +122,7 @@ public class TelegramRestClientImpl implements TelegramRestClient {
 
             HttpRequest sendMessage = HttpRequest.newBuilder()
                     .header("Content-Type", "application/json")
-                    .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + SENDMESSAGE.getParamPathSendMessage(chatId, encodedText)))
+                    .uri(URI.create(settings.telegramApiEndpoint() + settings.privateToken() + SENDMESSAGE.getParamPathSendMessage(chatId, MARKDOWN, encodedText)))
                     .POST(HttpRequest.BodyPublishers.ofString(keyboardAsJson))
                     .build();
             try {
