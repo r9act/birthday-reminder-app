@@ -47,6 +47,8 @@ public class SecurityConfig {
             }))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                    //fixme для теста (убрать)
+                    .requestMatchers("/api/users/**").permitAll()
                 .requestMatchers("/login", "/signup").permitAll()
 				.requestMatchers("/api/birthdays/**").hasAnyRole("USER", "DEVELOPER") // Доступ для USER и DEVELOPER
                 .requestMatchers("/developer/**").hasRole("DEVELOPER") // Только для DEVELOPER

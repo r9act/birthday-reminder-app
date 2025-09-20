@@ -10,5 +10,5 @@ dependencyResolutionManagement {
     }
 }
 include("telegram-bot-client")
-include("android-client")
+include("web-api")
 include("common")
