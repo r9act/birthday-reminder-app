@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${USERNAMEE}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "54321:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${USERNAMEE} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  liquibase:
+    image: liquibase/liquibase:4.23
+    container_name: liquibase_migration
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+       - ./app/src/main/resources/db/changelog:/liquibase/changelog
+    working_dir: /liquibase/changelog
+    command: >
+      --url=jdbc:postgresql://db:5432/${DB_NAME}
+      --username=${USERNAMEE}
+      --password=${PASSWORD}
+      --changeLogFile=db.changelog-master.yaml
+      update
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile_debug
+    container_name: spring_app
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      USERNAME: ${USERNAMEE}
+      PASSWORD: ${PASSWORD}
+      JWT_KEY: ${JWT_KEY}
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    depends_on:
+      liquibase:
+        condition: service_completed_successfully
+
+volumes:
+  db_data:

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/changeset/create-users-table.yaml
+      file: changeset/create-users-table.yaml
   - include:
-      file: db/changelog/changeset/create-person_birthdays-table.yaml
+      file: changeset/create-person_birthdays-table.yaml
   - include:
-      file: db/changelog/changeset/create-users_roles-table.yaml
+      file: changeset/create-users_roles-table.yaml

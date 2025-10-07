@@ -3,7 +3,7 @@ ENV BOT_TOKEN = ${BOT_TOKEN}
 ENV DATASOURCE_URL = ${DATASOURCE_URL}
 ENV USERNAME = ${USERNAME}
 ENV PASSWORD = ${PASSWORD}
-EXPOSE 8080
+EXPOSE 8080 5005
 WORKDIR /opt/app
-COPY app/build/libs/app-0.0.1-SNAPSHOT.jar app.jar
+COPY app/build/libs/app-2.0.1.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

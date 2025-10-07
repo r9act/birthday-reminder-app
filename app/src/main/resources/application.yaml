@@ -16,7 +16,7 @@ spring:
   security:
     jwt-secret: ${JWT_KEY}
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
   jpa:
     show-sql: true
     generate-ddl: false # Отключаем автоматическую генерацию схемы Hibernate при исп. liquibase
